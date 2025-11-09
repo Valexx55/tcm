@@ -19,19 +19,9 @@ export class CommunicationService {
   
   productoAdded = this.productoAddedSubject.asObservable()
 
-   readonly total$ = this.productos$.pipe(
-    map(productos =>
-      productos.reduce((acc, p) => acc + p.precio * (p.cantidad ?? 1), 0)
-    )
-  );
 
-  //propina, que lo programen ellos
-  readonly totalItems$ = this.productos$.pipe(
-  map(productos =>
-    productos.reduce((acc, p) => acc + (p.cantidad ?? 1), 0)
-  )
-);
-
+  readonly total$!: Observable<number>;
+  readonly totalItems$!: Observable<number>;
   
 
 /*
@@ -49,6 +39,20 @@ constructor() {
     // 🔹 2. Crear BehaviorSubject con ese valor inicial
     this.productoAddedSubject = new BehaviorSubject<ProductoEvent[]>(inicial);
     this.productos$ = this.productoAddedSubject.asObservable();
+
+    
+    this.total$ = this.productos$.pipe(
+    map(productos =>
+      productos.reduce((acc, p) => acc + p.precio * (p.cantidad ?? 1), 0)
+    )
+  );
+
+  //propina, que lo programen ellos
+  this.totalItems$ = this.productos$.pipe(
+  map(productos =>
+    productos.reduce((acc, p) => acc + (p.cantidad ?? 1), 0)
+  )
+);
 
     console.log('🛰️ CommunicationService inicializado con', inicial);
   }
