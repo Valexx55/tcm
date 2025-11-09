@@ -1,0 +1,11 @@
+<h2>Perfil del usuario</h2>
+<p>Información del usuario cargada desde el módulo <strong>Perfil</strong>.</p>
+
+<p *ngIf="perfil; else sinPerfil">
+  <strong>Nombre:</strong> {{ perfil.nombre }}<br>
+  <strong>Correo:</strong> {{ perfil.correo }}
+</p>
+
+<ng-template #sinPerfil>
+  <p>No hay datos de perfil disponibles.</p>
+</ng-template>
