@@ -3,7 +3,7 @@
 
 <h2>Productos</h2>
 
-<ul *ngIf="productos?.length; else sinProductos">
+<ul *ngIf="productos.length>0; else sinProductos">
   <li *ngFor="let p of productos">
     {{ p.nombre }} - {{ p.precio | currency }}
     <button (click)="agregarAlCarrito(p)">Agregar al carrito</button>

@@ -12,4 +12,6 @@ module.exports = withModuleFederationPlugin({
     ...shareAll({ singleton: true, strictVersion: true, requiredVersion: 'auto' }),
   },
 
+   sharedMappings:["@core-lib", "@models"] // así estamos forzando a que todos los micros tengan una misma instancia de estas librerías
+
 });

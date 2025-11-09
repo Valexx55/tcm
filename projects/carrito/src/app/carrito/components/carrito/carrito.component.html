@@ -10,6 +10,8 @@
             </tr>
         </thead>
 
+        <!-- cuando pasaomos a bhs[] ya no vale-->
+        <!--
         <tbody *ngIf="carrito && carrito.length > 0; else carritoVacio">
             <tr *ngFor="let item of carrito; trackBy: trackById">
                 <td>{{ item.nombre }}</td>
@@ -17,8 +19,20 @@
                 <td>{{ item.precio | currency:'EUR' }}</td>
             </tr>
         </tbody>
+        -->
+        <tbody>
+            <tr *ngIf="(productos$ | async)?.length === 0">
+                <td colspan="3">Carrito vacío</td>
+            </tr>
 
-        
+            <tr *ngFor="let p of (productos$ | async); trackBy: trackById">
+                <td>{{ p.nombre }}</td>
+                <td>{{ p.cantidad }}</td>
+                <td>{{ p.precio | currency:'EUR' }}</td>
+            </tr>
+        </tbody>
+
+
 
         <ng-template #carritoVacio>
             <tbody>
@@ -30,7 +44,11 @@
     </table>
 
     <div class="carrito-total">
-        <strong>Total:</strong> {{ total | currency:'EUR' }}
+        <!--<strong>Total:</strong> {{ total | currency:'EUR' }}-->
+        <div>Total: {{ total$ | async | currency:'EUR' }}</div>
+        <p>Tienes {{ items$ | async }} productos en el carrito.</p>
+
+        
     </div>
 
     <button (click)="vaciarCarrito()">Vaciar carrito</button>
