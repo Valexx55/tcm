@@ -17,7 +17,10 @@
       ],
       "@core-lib": [
         "projects/core/src/public-api.ts"
-      ]
+      ],
+      "@shared-lib": [
+        "projects/shared/src/public-api.ts"
+      ],
     },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,

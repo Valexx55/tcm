@@ -4,10 +4,15 @@ import { BehaviorSubject, map, Observable, ReplaySubject, Subject } from 'rxjs';
 
 const STORAGE_KEY = 'carrito_productos';
 
+
+let instanceCounter = 0;
+
 @Injectable({
   providedIn: 'root'
 })
 export class CommunicationService {
+
+  private instanceId = ++instanceCounter;
 
   //private productoAddedSubject = new Subject<ProductoEvent>();
   //private productoAddedSubject = new BehaviorSubject<ProductoEvent|null>(null);
@@ -54,7 +59,9 @@ constructor() {
   )
 );
 
-    console.log('🛰️ CommunicationService inicializado con', inicial);
+    //console.log('🛰️ CommunicationService inicializado con', inicial);
+    
+    console.log(`🛰️ CommunicationService creado (instancia #${this.instanceId})`, this);
   }
 
   //nuevo método de mejora
