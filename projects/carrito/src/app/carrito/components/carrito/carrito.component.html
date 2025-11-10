@@ -32,6 +32,12 @@
             </tr>
         </tbody>
 
+        <h3>Estado NgRx</h3>
+        <ul>
+            <li *ngFor="let p of (productosNgRx$ | async)">
+                {{ p.nombre }} (x{{ p.cantidad }})
+            </li>
+        </ul>
 
 
         <ng-template #carritoVacio>
@@ -48,7 +54,7 @@
         <div>Total: {{ total$ | async | currency:'EUR' }}</div>
         <p>Tienes {{ items$ | async }} productos en el carrito.</p>
 
-        
+
     </div>
 
     <button (click)="vaciarCarrito()">Vaciar carrito</button>

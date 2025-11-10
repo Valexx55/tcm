@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ProductoEvent } from '@models';
+import { Store } from '@ngrx/store';
 import { BehaviorSubject, map, Observable, ReplaySubject, Subject } from 'rxjs';
+import * as CartActions from '../../state/cart.actions';
 
 const STORAGE_KEY = 'carrito_productos';
 
@@ -36,7 +38,7 @@ constructor() {
 
     //nuevo constructor con local storage
 
-    constructor() {
+    constructor(private store:Store) {
     // 🔹 1. Leer el estado inicial del localStorage
     const stored = localStorage.getItem(STORAGE_KEY);
     const inicial: ProductoEvent[] = stored ? JSON.parse(stored) : [];
@@ -82,17 +84,21 @@ constructor() {
     }
 
     this.persistir(); // 💾 guardar cada vez que cambie
+    this.store.dispatch(CartActions.agregarProducto({producto}))
   }
 
   eliminarProducto(id: number): void {
     const actual = this.productoAddedSubject.value.filter(p => p.id !== id);
     this.productoAddedSubject.next(actual);
     this.persistir();
+    // ✅ sincronizar también con NgRx
+  this.store.dispatch(CartActions.eliminarProducto({ id }));
   }
 
   vaciarProductos(): void {
     this.productoAddedSubject.next([]);
     localStorage.removeItem(STORAGE_KEY); // 🧹 limpio almacenamiento
+    this.store.dispatch(CartActions.vaciarCarrito());
   }
 
   /**válido con las 3 primerras pero no con el BHS [] */

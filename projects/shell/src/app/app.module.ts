@@ -4,6 +4,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from '@shared-lib';
+import { StoreModule } from '@ngrx/store';
+import { cartReducer, CartState } from '@core-lib';
+
+
+
 
 @NgModule({
   declarations: [
@@ -12,7 +17,8 @@ import { HeaderComponent } from '@shared-lib';
   imports: [
     BrowserModule,
     AppRoutingModule, 
-    HeaderComponent
+    HeaderComponent,
+      StoreModule.forRoot({ carrito: cartReducer }),
   ],
   providers: [],
   bootstrap: [AppComponent]

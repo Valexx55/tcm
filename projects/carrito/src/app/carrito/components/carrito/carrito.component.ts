@@ -1,9 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CarritoService } from '../../services/carrito.service';
-import { CommunicationService } from '@core-lib';
+import { CommunicationService, selectProductos, selectTotal, selectTotalItems } from '@core-lib';
 import { Subscription } from 'rxjs';
 import { ProductoEvent } from '@models';
 import { compileNgModule } from '@angular/compiler';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-carrito',
@@ -16,6 +17,7 @@ export class CarritoComponent /*implements OnInit*/ {
   private carritoService: CarritoService = inject(CarritoService)
 
   private comunicacion = inject(CommunicationService);
+  private store: Store = inject(Store)
 
   
   carrito: any[] = [];
@@ -83,6 +85,11 @@ export class CarritoComponent /*implements OnInit*/ {
   productos$ = this.comunicacion.productos$;
   total$ = this.comunicacion.total$;
   items$ = this.comunicacion.totalItems$;
+
+  //variante NgRx
+  productosNgRx$ = this.store.select(selectProductos);
+  totalNgRx$ = this.store.select(selectTotal);
+  itemsNgRx$ = this.store.select(selectTotalItems);
 
 
   vaciarCarrito() {
