@@ -15,9 +15,16 @@ export class ProductoComponent implements OnInit{
 
   private productosService = inject(ProductosService);
   productos: Producto[] = [];
-
+/*
   ngOnInit(): void {
     this.productos = this.productosService.getProductos();
+  }*/
+
+   ngOnInit() {
+    this.productosService.getProductos().subscribe({
+      next: (data) => this.productos = data,
+      error: (err) => console.error('❌ Error cargando productos:', err)
+    });
   }
 
 
