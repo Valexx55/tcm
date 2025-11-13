@@ -18,7 +18,7 @@ import { cartReducer, CartState } from '@core-lib';
     BrowserModule,
     AppRoutingModule, 
     HeaderComponent,
-      StoreModule.forRoot({ carrito: cartReducer }),
+    StoreModule.forRoot({ carrito: cartReducer }),
   ],
   providers: [],
   bootstrap: [AppComponent]
