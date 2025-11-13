@@ -3,6 +3,7 @@ import { Producto } from '../../models/producto.model';
 import { ProductosService } from '../../services/productos.service';
 import { CommunicationService } from '@core-lib';
 import { ProductoEvent } from '@models';
+import { Comservice2Service } from '../../services/comservice2.service';
 
 @Component({
   selector: 'app-producto',
@@ -12,6 +13,7 @@ import { ProductoEvent } from '@models';
 export class ProductoComponent implements OnInit{
 
   private comunicacion = inject(CommunicationService);
+  private com2 = inject(Comservice2Service);
 
   private productosService = inject(ProductosService);
   productos: Producto[] = [];
@@ -51,7 +53,14 @@ export class ProductoComponent implements OnInit{
     //versión nueva con BHS []
   agregarAlCarrito(p: ProductoEvent) {
     this.comunicacion.agregarProducto(p);
+    this.addToCart(p)
   }
 
+  addToCart(product: any) {
+    this.com2.sendMessage({
+      type: 'ADD_TO_CART',
+      payload: product
+    });
+  }
 
 }

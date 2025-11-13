@@ -5,13 +5,14 @@ import { Subscription } from 'rxjs';
 import { ProductoEvent } from '@models';
 import { compileNgModule } from '@angular/compiler';
 import { Store } from '@ngrx/store';
+import { Comservice2Service } from '../../services/comservice2.service';
 
 @Component({
   selector: 'app-carrito',
   templateUrl: './carrito.component.html',
   styleUrls: ['./carrito.component.css']
 })
-export class CarritoComponent /*implements OnInit*/ {
+export class CarritoComponent implements OnInit {
   
   //versión de a uno
   private carritoService: CarritoService = inject(CarritoService)
@@ -19,12 +20,18 @@ export class CarritoComponent /*implements OnInit*/ {
   private comunicacion = inject(CommunicationService);
   private store: Store = inject(Store)
 
-  
+  private com2 = inject(Comservice2Service);
   carrito: any[] = [];
   //total = 0; comentamos con BHS []
   //private sub!: Subscription; con BHS [] ya no hace falta
 
-  
+  ngOnInit() {
+    this.com2.onMessage((msg) => {
+      //if (msg.type === 'ADD_TO_CART') {
+        console.log("Añadiendo un nuevo producto " + msg.payload)
+      //}
+    });
+  }
 
   /*v0 con subject tb funciona con Replay*/
   /*ngOnInit() {
